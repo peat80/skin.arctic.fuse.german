@@ -79,6 +79,10 @@
         <value condition="!String.IsEmpty(Skin.String(mid_season_finale_color.name))">$INFO[Skin.String(mid_season_finale_color.name)]</value>
         <value>ffb58503</value>
     </variable>
+    <variable name="ColorBanner_video_version">
+        <value condition="!String.IsEmpty(Skin.String(video_version_color.name))">$INFO[Skin.String(video_version_color.name)]</value>
+        <value>ff181818</value>
+    </variable>
 
     <!-- EPG Progress Color -->
     <variable name="ColorPVRProgress">

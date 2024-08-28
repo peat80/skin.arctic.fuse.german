@@ -2063,6 +2063,15 @@
             <label>$LOCALIZE[31227] / $LOCALIZE[849] ($LOCALIZE[31230])</label>
         </include>
 
+        <include content="Settings_Button">
+            <param name="id">8011</param>
+            <param name="control">radiobutton</param>
+            <param name="dialog">true</param>
+            <onclick>Skin.ToggleSetting(Indicator.MovieVersionBanner)</onclick>
+            <selected>Skin.HasSetting(Indicator.MovieVersionBanner)</selected>
+            <label>$LOCALIZE[40012]</label>
+        </include>
+
     </include>
 
     <include name="Items_Settings_CustomStartup">
