@@ -319,32 +319,9 @@
             <include>Animation_View_SlideOver_Invert</include>
             <height>view_poster_itemlayout_h</height>
             <visible>String.IsEqual(Window.Property(DetailsView),Critics) | String.IsEmpty(Window.Property(DetailsView))</visible>
-            <control type="group">
-                <right>0</right>
-                <height>view_poster_itemlayout_h</height>
-                <width>view_board_itemlayout_w</width>
-                <include content="Layout_Poster" condition="!$EXP[Exp_AspectRatio_Reduced]">
-                    <param name="icon">$VAR[Image_DialogInfo_Landscape]</param>
-                    <param name="diffuse">diffuse/landscape_w520_h294.png</param>
-                    <param name="indicator">true</param>
-                    <param name="item_w">view_board_item_w</param>
-                    <param name="item_h">view_poster_item_h</param>
-                </include>
-            </control>
-            <control type="group">
-                <include content="Object_Right" condition="!$EXP[Exp_AspectRatio_Reduced]">
-                    <param name="right">view_board_itemlayout_w</param>
-                </include>
-                <right>0</right>
-                <height>view_poster_itemlayout_h</height>
-                <width>view_poster_itemlayout_h</width>
-                <include content="Layout_Poster">
-                    <param name="icon">$INFO[ListItem.Icon]</param>
-                    <param name="indicator">false</param>
-                    <param name="item_w">view_poster_item_h</param>
-                    <param name="item_h">view_poster_item_h</param>
-                </include>
-            </control>
+            <include content="DialogInfo_Music_SideArt">
+                <param name="visible">true</param>
+            </include>
         </control>
 
         <include content="Widget_Busy">
@@ -793,29 +770,12 @@
             <include>Animation_View_SlideOver_Invert</include>
             <height>view_poster_itemlayout_h</height>
             <visible>String.IsEqual(Window.Property(DetailsView),Critics) | String.IsEmpty(Window.Property(DetailsView))</visible>
-            <control type="group">
-                <right>0</right>
-                <height>view_poster_itemlayout_h</height>
-                <width>view_board_itemlayout_w</width>
-                <include content="Layout_Poster">
-                    <param name="icon">$VAR[Image_DialogInfo_Landscape]</param>
-                    <param name="diffuse">diffuse/landscape_w520_h294.png</param>
-                    <param name="indicator">true</param>
-                    <param name="item_w">view_board_item_w</param>
-                    <param name="item_h">view_poster_item_h</param>
-                </include>
-            </control>
-            <control type="group">
-                <right>view_board_itemlayout_w</right>
-                <height>view_poster_itemlayout_h</height>
-                <width>view_poster_itemlayout_w</width>
-                <include content="Layout_Poster" condition="!$EXP[Exp_AspectRatio_Reduced]">
-                    <param name="icon">$VAR[Image_DialogInfo_Poster]</param>
-                    <param name="indicator">false</param>
-                    <param name="item_w">view_poster_item_w</param>
-                    <param name="item_h">view_poster_item_h</param>
-                </include>
-            </control>
+            <include content="DialogInfo_Video_SideArt">
+                <param name="visible">![String.IsEqual(ListItem.DBType,musicvideo)]</param>
+            </include>
+            <include content="DialogInfo_Music_SideArt">
+                <param name="visible">String.IsEqual(ListItem.DBType,musicvideo)</param>
+            </include>
         </control>
 
 
@@ -825,6 +785,65 @@
             <top>-90</top>
             <left>200</left>
         </include>
+    </include>
+
+    <include name="DialogInfo_Video_SideArt">
+        <control type="group">
+            <visible>$PARAM[visible]</visible>
+            <right>0</right>
+            <height>view_poster_itemlayout_h</height>
+            <width>view_board_itemlayout_w</width>
+            <include content="Layout_Poster">
+                <param name="icon">$VAR[Image_DialogInfo_Landscape]</param>
+                <param name="diffuse">diffuse/landscape_w520_h294.png</param>
+                <param name="indicator">true</param>
+                <param name="item_w">view_board_item_w</param>
+                <param name="item_h">view_poster_item_h</param>
+            </include>
+        </control>
+        <control type="group">
+            <right>view_board_itemlayout_w</right>
+            <height>view_poster_itemlayout_h</height>
+            <width>view_poster_itemlayout_w</width>
+            <include content="Layout_Poster" condition="!$EXP[Exp_AspectRatio_Reduced]">
+                <param name="icon">$VAR[Image_DialogInfo_Poster]</param>
+                <param name="indicator">false</param>
+                <param name="item_w">view_poster_item_w</param>
+                <param name="item_h">view_poster_item_h</param>
+            </include>
+        </control>
+    </include>
+
+    <include name="DialogInfo_Music_SideArt">
+        <control type="group">
+            <visible>$PARAM[visible]</visible>
+            <control type="group">
+                <right>0</right>
+                <height>view_poster_itemlayout_h</height>
+                <width>view_board_itemlayout_w</width>
+                <include content="Layout_Poster" condition="!$EXP[Exp_AspectRatio_Reduced]">
+                    <param name="icon">$VAR[Image_DialogInfo_Landscape]</param>
+                    <param name="diffuse">diffuse/landscape_w520_h294.png</param>
+                    <param name="indicator">true</param>
+                    <param name="item_w">view_board_item_w</param>
+                    <param name="item_h">view_poster_item_h</param>
+                </include>
+            </control>
+            <control type="group">
+                <include content="Object_Right" condition="!$EXP[Exp_AspectRatio_Reduced]">
+                    <param name="right">view_board_itemlayout_w</param>
+                </include>
+                <right>0</right>
+                <height>view_poster_itemlayout_h</height>
+                <width>view_poster_itemlayout_h</width>
+                <include content="Layout_Poster">
+                    <param name="icon">$INFO[ListItem.Icon]</param>
+                    <param name="indicator">false</param>
+                    <param name="item_w">view_poster_item_h</param>
+                    <param name="item_h">view_poster_item_h</param>
+                </include>
+            </control>
+        </control>
     </include>
 
     <include name="DialogInfo_ButtonGroup_Basic">
