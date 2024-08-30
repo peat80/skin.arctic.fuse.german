@@ -166,11 +166,6 @@
         <value>$LOCALIZE[231]</value>
     </variable>
 
-    <variable name="Label_DialogInfo_TraktRating">
-        <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.TraktIsAuth))">Trakt</value>
-        <value>Wiki</value>
-    </variable>
-
     <variable name="Label_TraktStats_Recent_0_Type">
         <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.TraktStats.Recent.0.Type),episode)">$LOCALIZE[20359]</value>
         <value condition="String.IsEqual(Window(Home).Property(TMDbHelper.TraktStats.Recent.0.Type),movie)">$LOCALIZE[20338]</value>
