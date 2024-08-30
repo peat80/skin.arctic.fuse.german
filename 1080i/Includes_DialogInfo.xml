@@ -469,114 +469,12 @@
         </control>
     </include>
 
-    <include name="DialogInfo_VideoInfo">
-        <include content="DialogInfo_VideoDetails">
-            <param name="visible">String.IsEmpty(Window.Property(DetailsView))</param>
-        </include>
-
-        <!-- Videos -->
-        <include content="List_Landscape_Row">
-            <param name="id">5002</param>
-            <height>divider_bottom</height>
-
-            <bottom>-160</bottom>
-            <include content="DialogInfo_List_Movement">
-                <param name="id">5002</param>
-            </include>
-
-            <include content="Action_PlayTrailer_OnClick">
-                <param name="trailer">Container(5002).ListItem.FileNameAndPath</param>
-                <param name="trailer_fallback" />
-            </include>
-
-            <content target="videos">$VAR[Path_VideoInfo_Generic,,&amp;info=videos]</content>
-            <visible>String.IsEqual(Window.Property(DetailsView),Trailer)</visible>
-            <animation effect="fade" start="100" end="0" condition="Container(5002).IsUpdating">Conditional</animation>
-        </include>
-
-        <!-- Artwork -->
-        <include content="List_Landscape_Row" condition="$EXP[Exp_HomeMenu_IsTopBar]">
-            <param name="id">5009</param>
-            <height>divider_bottom</height>
-
-            <bottom>-160</bottom>
-
-            <include content="DialogInfo_List_Movement">
-                <param name="id">5009</param>
-            </include>
-
-            <include content="Animation_ConditionalFade">
-                <param name="condition">Container(5009).IsUpdating</param>
-            </include>
-
-            <content>
-                <item>
-                    <icon>$INFO[ListItem.Art(thumb)]</icon>
-                    <label>Thumb</label>
-                    <label2>$INFO[ListItem.Art(thumb)]</label2>
-                    <visible>!String.IsEmpty(ListItem.Art(thumb))</visible>
-                    <visible>Window.IsVisible(DialogVideoInfo.xml)</visible>
-                </item>
-                <item>
-                    <icon>$INFO[ListItem.Art(fanart)]</icon>
-                    <label>Fanart</label>
-                    <label2>$INFO[ListItem.Art(fanart)]</label2>
-                    <visible>!String.IsEmpty(ListItem.Art(fanart))</visible>
-                </item>
-                <item>
-                    <icon>$INFO[Container(99950).ListItem.Art(fanart)]</icon>
-                    <label>Fanart TMDb</label>
-                    <label2>$INFO[Container(99950).ListItem.Art(fanart)]</label2>
-                    <visible>!String.IsEmpty(Container(99950).ListItem.Art(fanart))</visible>
-                    <visible>!String.IsEqual(Container(99950).ListItem.Art(fanart),ListItem.Art(fanart))</visible>
-                </item>
-                <item>
-                    <icon>$INFO[ListItem.Art(fanart1)]</icon>
-                    <label>Fanart1</label>
-                    <label2>$INFO[ListItem.Art(fanart1)]</label2>
-                    <visible>!String.IsEmpty(ListItem.Art(fanart1))</visible>
-                    <visible>!String.IsEqual(ListItem.Art(fanart1),ListItem.Art(fanart))</visible>
-                </item>
-                <item>
-                    <icon>$INFO[ListItem.Art(fanart2)]</icon>
-                    <label>Fanart2</label>
-                    <label2>$INFO[ListItem.Art(fanart2)]</label2>
-                    <visible>!String.IsEmpty(ListItem.Art(fanart2))</visible>
-                    <visible>!String.IsEqual(ListItem.Art(fanart2),ListItem.Art(fanart))</visible>
-                </item>
-                <item>
-                    <icon>$INFO[ListItem.Art(fanart3)]</icon>
-                    <label>Fanart3</label>
-                    <label2>$INFO[ListItem.Art(fanart3)]</label2>
-                    <visible>!String.IsEmpty(ListItem.Art(fanart3))</visible>
-                    <visible>!String.IsEqual(ListItem.Art(fanart3),ListItem.Art(fanart))</visible>
-                </item>
-                <item>
-                    <icon>$INFO[ListItem.Art(fanart4)]</icon>
-                    <label>Fanart4</label>
-                    <label2>$INFO[ListItem.Art(fanart4)]</label2>
-                    <visible>!String.IsEmpty(ListItem.Art(fanart4))</visible>
-                    <visible>!String.IsEqual(ListItem.Art(fanart4),ListItem.Art(fanart))</visible>
-                </item>
-                <item>
-                    <icon>$INFO[ListItem.Art(fanart5)]</icon>
-                    <label>Fanart5</label>
-                    <label2>$INFO[ListItem.Art(fanart5)]</label2>
-                    <visible>!String.IsEmpty(ListItem.Art(fanart5))</visible>
-                    <visible>!String.IsEqual(ListItem.Art(fanart5),ListItem.Art(fanart))</visible>
-                </item>
-            </content>
-            <include condition="Window.IsVisible(DialogVideoInfo.xml) | Window.IsVisible(DialogPVRInfo.xml)">DialogInfo_VideoFanartContent</include>
-
-            <visible>String.IsEqual(Window.Property(DetailsView),Artwork)</visible>
-        </include>
-
-        <include content="Object_Control" condition="!Skin.HasSetting(Info.UseLocalCast)">
-            <param name="control">group</param>
+    <include name="DialogInfo_Cast_Online">
+        <control type="group">
             <include content="Animation_ConditionalFade">
                 <param name="condition">Container(5003).IsUpdating</param>
             </include>
-            <visible>String.IsEqual(Window.Property(DetailsView),Cast)</visible>
+            <visible>$PARAM[visible]</visible>
 
             <include condition="!$EXP[Exp_AspectRatio_Reduced]">DialogInfo_Cast_PersonBiography</include>
 
@@ -694,33 +592,15 @@
                 </control>
             </control>
 
-        </include>
-        <include content="Object_Control" condition="Skin.HasSetting(Info.UseLocalCast)">
-            <param name="control">group</param>
+        </control>
+    </include>
 
-            <visible>String.IsEqual(Window.Property(DetailsView),Cast)</visible>
+    <include name="DialogInfo_Cast_Local">
+        <control type="group">
+            <visible>$PARAM[visible]</visible>
             <include content="Animation_ConditionalFade">
                 <param name="condition">Container(50).IsUpdating</param>
             </include>
-            <include content="Object_Hidden_List">
-                <param name="id">5203</param>
-                <content sortby="year" sortorder="descending">$INFO[Container(50).ListItem.Label,plugin://plugin.video.themoviedb.helper/?info=details&amp;tmdb_type=person&amp;query=,]</content>
-            </include>
-
-
-            <control type="group">
-                <include>Animation_View_SlideOver_Invert</include>
-                <control type="group">
-                    <include content="DialogInfo_VideoInfo_CastSpotlight">
-                        <param name="icon">$INFO[Container(50).ListItem.Icon]</param>
-                        <param name="label">$INFO[Container(50).ListItem.Label]</param>
-                    </include>
-                    <include>Animation_Right</include>
-                    <visible>Control.HasFocus(50)</visible>
-                    <top>-390</top>
-                </control>
-            </control>
-
             <include content="List_Poster_Row">
                 <param name="id">50</param>
                 <param name="detailed">true</param>
@@ -733,17 +613,128 @@
                     <param name="onup_condition">false</param>
                 </include>
 
-                <ondown>SetFocus(50,0,absolute)</ondown>
-                <ondown>4000</ondown>
+                <onup>SetFocus(50,0,absolute)</onup>
+                <onup>4000</onup>
 
-                <onup>SetProperty(Item_Title,$INFO[Container(50).ListItem.Label],1122)</onup>
-                <onup>SetProperty(Item_Query,$INFO[Container(50).ListItem.Label,&amp;query=,],1122)</onup>
-                <onup>SetProperty(Item_Icon,$INFO[Container(50).ListItem.Icon],1122)</onup>
-                <onup>SetProperty(Item_Plot,$VAR[Label_VideoInfo_CastBio_Prop],1122)</onup>
-                <onup>SetProperty(Item_Label,$INFO[Container(50).ListItem.Label],1122)</onup>
-                <onup>SetProperty(Item_Label2,$VAR[Label_VideoInfo_CastAge],1122)</onup>
-                <onup>ActivateWindow(1122)</onup>
+                <ondown condition="!String.IsEqual(ListITem.DBType,musicvideo)">SetProperty(Item_Title,$INFO[Container(50).ListItem.Label],1122)</ondown>
+                <ondown condition="!String.IsEqual(ListITem.DBType,musicvideo)">SetProperty(Item_Query,$INFO[Container(50).ListItem.Label,&amp;query=,],1122)</ondown>
+                <ondown condition="!String.IsEqual(ListITem.DBType,musicvideo)">SetProperty(Item_Icon,$INFO[Container(50).ListItem.Icon],1122)</ondown>
+                <ondown condition="!String.IsEqual(ListITem.DBType,musicvideo)">SetProperty(Item_Plot,$VAR[Label_VideoInfo_CastBio_Prop],1122)</ondown>
+                <ondown condition="!String.IsEqual(ListITem.DBType,musicvideo)">SetProperty(Item_Label,$INFO[Container(50).ListItem.Label],1122)</ondown>
+                <ondown condition="!String.IsEqual(ListITem.DBType,musicvideo)">SetProperty(Item_Label2,$VAR[Label_VideoInfo_CastAge],1122)</ondown>
+                <ondown condition="!String.IsEqual(ListITem.DBType,musicvideo)">ActivateWindow(1122)</ondown>
             </include>
+        </control>
+    </include>
+
+    <include name="DialogInfo_VideoInfo">
+        <include content="DialogInfo_VideoDetails">
+            <param name="visible">String.IsEmpty(Window.Property(DetailsView))</param>
+        </include>
+
+        <!-- Videos -->
+        <include content="List_Landscape_Row">
+            <param name="id">5002</param>
+            <height>divider_bottom</height>
+
+            <bottom>-160</bottom>
+            <include content="DialogInfo_List_Movement">
+                <param name="id">5002</param>
+            </include>
+
+            <include content="Action_PlayTrailer_OnClick">
+                <param name="trailer">Container(5002).ListItem.FileNameAndPath</param>
+                <param name="trailer_fallback" />
+            </include>
+
+            <content target="videos">$VAR[Path_VideoInfo_Generic,,&amp;info=videos]</content>
+            <visible>String.IsEqual(Window.Property(DetailsView),Trailer)</visible>
+            <animation effect="fade" start="100" end="0" condition="Container(5002).IsUpdating">Conditional</animation>
+        </include>
+
+        <!-- Artwork -->
+        <include content="List_Landscape_Row" condition="$EXP[Exp_HomeMenu_IsTopBar]">
+            <param name="id">5009</param>
+            <height>divider_bottom</height>
+
+            <bottom>-160</bottom>
+
+            <include content="DialogInfo_List_Movement">
+                <param name="id">5009</param>
+            </include>
+
+            <include content="Animation_ConditionalFade">
+                <param name="condition">Container(5009).IsUpdating</param>
+            </include>
+
+            <content>
+                <item>
+                    <icon>$INFO[ListItem.Art(thumb)]</icon>
+                    <label>Thumb</label>
+                    <label2>$INFO[ListItem.Art(thumb)]</label2>
+                    <visible>!String.IsEmpty(ListItem.Art(thumb))</visible>
+                    <visible>Window.IsVisible(DialogVideoInfo.xml)</visible>
+                </item>
+                <item>
+                    <icon>$INFO[ListItem.Art(fanart)]</icon>
+                    <label>Fanart</label>
+                    <label2>$INFO[ListItem.Art(fanart)]</label2>
+                    <visible>!String.IsEmpty(ListItem.Art(fanart))</visible>
+                </item>
+                <item>
+                    <icon>$INFO[Container(99950).ListItem.Art(fanart)]</icon>
+                    <label>Fanart TMDb</label>
+                    <label2>$INFO[Container(99950).ListItem.Art(fanart)]</label2>
+                    <visible>!String.IsEmpty(Container(99950).ListItem.Art(fanart))</visible>
+                    <visible>!String.IsEqual(Container(99950).ListItem.Art(fanart),ListItem.Art(fanart))</visible>
+                </item>
+                <item>
+                    <icon>$INFO[ListItem.Art(fanart1)]</icon>
+                    <label>Fanart1</label>
+                    <label2>$INFO[ListItem.Art(fanart1)]</label2>
+                    <visible>!String.IsEmpty(ListItem.Art(fanart1))</visible>
+                    <visible>!String.IsEqual(ListItem.Art(fanart1),ListItem.Art(fanart))</visible>
+                </item>
+                <item>
+                    <icon>$INFO[ListItem.Art(fanart2)]</icon>
+                    <label>Fanart2</label>
+                    <label2>$INFO[ListItem.Art(fanart2)]</label2>
+                    <visible>!String.IsEmpty(ListItem.Art(fanart2))</visible>
+                    <visible>!String.IsEqual(ListItem.Art(fanart2),ListItem.Art(fanart))</visible>
+                </item>
+                <item>
+                    <icon>$INFO[ListItem.Art(fanart3)]</icon>
+                    <label>Fanart3</label>
+                    <label2>$INFO[ListItem.Art(fanart3)]</label2>
+                    <visible>!String.IsEmpty(ListItem.Art(fanart3))</visible>
+                    <visible>!String.IsEqual(ListItem.Art(fanart3),ListItem.Art(fanart))</visible>
+                </item>
+                <item>
+                    <icon>$INFO[ListItem.Art(fanart4)]</icon>
+                    <label>Fanart4</label>
+                    <label2>$INFO[ListItem.Art(fanart4)]</label2>
+                    <visible>!String.IsEmpty(ListItem.Art(fanart4))</visible>
+                    <visible>!String.IsEqual(ListItem.Art(fanart4),ListItem.Art(fanart))</visible>
+                </item>
+                <item>
+                    <icon>$INFO[ListItem.Art(fanart5)]</icon>
+                    <label>Fanart5</label>
+                    <label2>$INFO[ListItem.Art(fanart5)]</label2>
+                    <visible>!String.IsEmpty(ListItem.Art(fanart5))</visible>
+                    <visible>!String.IsEqual(ListItem.Art(fanart5),ListItem.Art(fanart))</visible>
+                </item>
+            </content>
+            <include condition="Window.IsVisible(DialogVideoInfo.xml) | Window.IsVisible(DialogPVRInfo.xml)">DialogInfo_VideoFanartContent</include>
+
+            <visible>String.IsEqual(Window.Property(DetailsView),Artwork)</visible>
+        </include>
+
+        <include content="DialogInfo_Cast_Online" condition="!Skin.HasSetting(Info.UseLocalCast)">
+            <param name="visible">String.IsEqual(Window.Property(DetailsView),Cast)</param>
+        </include>
+
+        <include content="DialogInfo_Cast_Local">
+            <param name="visible">String.IsEqual(Window.Property(DetailsView),Cast) + $EXP[Exp_InfoDialogs_Cast_IsLocal]</param>
         </include>
 
         <include content="List_Reviews_Row">
@@ -912,7 +903,7 @@
 
         <!-- Cast -->
         <onright condition="[String.IsEqual(Window.Property(DetailsView),Cast) + !Integer.IsEqual(Container(5003).NumItems,0)]">SetFocus(5003,0,absolute)</onright>
-        <onright condition="[String.IsEqual(Window.Property(DetailsView),Cast) + !Integer.IsEqual(Container(50).NumItems,0)]">SetFocus(50,0,absolute)</onright>
+        <onright condition="[String.IsEqual(Window.Property(DetailsView),Cast) + !Integer.IsEqual(Container(50).NumItems,0) + $EXP[Exp_InfoDialogs_Cast_IsLocal]]">SetFocus(50,0,absolute)</onright>
 
         <!-- Songs -->
         <onright condition="[String.IsEqual(Window.Property(DetailsView),Songs) + !Integer.IsEqual(Container(5050).NumItems,0)]">SetFocus(5050,0,absolute)</onright>
@@ -939,7 +930,7 @@
 
         <!-- Cast -->
         <ondown condition="[String.IsEqual(Window.Property(DetailsView),Cast) + !Integer.IsEqual(Container(5003).NumItems,0)]">SetFocus(5003,0,absolute)</ondown>
-        <ondown condition="[String.IsEqual(Window.Property(DetailsView),Cast) + !Integer.IsEqual(Container(50).NumItems,0)]">SetFocus(50,0,absolute)</ondown>
+        <ondown condition="[String.IsEqual(Window.Property(DetailsView),Cast) + !Integer.IsEqual(Container(50).NumItems,0) + $EXP[Exp_InfoDialogs_Cast_IsLocal]]">SetFocus(50,0,absolute)</ondown>
 
         <!-- Songs -->
         <ondown condition="[String.IsEqual(Window.Property(DetailsView),Songs) + !Integer.IsEqual(Container(5050).NumItems,0)]">SetFocus(5050,0,absolute)</ondown>
