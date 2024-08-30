@@ -465,6 +465,11 @@
         <value>-</value>
     </variable>
 
+    <variable name="Path_VideoInfo_Trailers">
+        <value condition="String.IsEqual(ListItem.DBType,musicvideo)">$VAR[Path_Youtube_Query,plugin://plugin.video.youtube/kodion/search/query/?q=,&amp;search_type=notvalid]</value>
+        <value>$VAR[Path_VideoInfo_Generic,,&amp;info=videos]</value>
+    </variable>
+
     <variable name="Path_VideoInfo_Generic">
         <value condition="!String.IsEmpty(Container(99950).ListItem.Property(TMDb_ID)) + String.IsEqual(Container(99950).ListItem.DBType,movie)">plugin://plugin.video.themoviedb.helper?tmdb_id=$INFO[Container(99950).ListItem.Property(TMDb_ID)]&amp;tmdb_type=movie$VAR[Path_Param_Widget]</value>
         <value condition="!String.IsEmpty(Container(99950).ListItem.Property(TMDb_ID)) + String.IsEqual(Container(99950).ListItem.DBType,tvshow)">plugin://plugin.video.themoviedb.helper?tmdb_id=$INFO[Container(99950).ListItem.Property(TMDb_ID)]&amp;tmdb_type=tv$VAR[Path_Param_Widget]</value>

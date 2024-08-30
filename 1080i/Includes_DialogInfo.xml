@@ -624,7 +624,7 @@
                 <param name="trailer_fallback" />
             </include>
 
-            <content target="videos">$VAR[Path_VideoInfo_Generic,,&amp;info=videos]</content>
+            <content target="videos">$VAR[Path_VideoInfo_Trailers]</content>
             <visible>String.IsEqual(Window.Property(DetailsView),Trailer)</visible>
             <animation effect="fade" start="100" end="0" condition="Container(5002).IsUpdating">Conditional</animation>
         </include>
